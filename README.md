@@ -1,7 +1,3 @@
-The repository is having a copy of readme of https://github.com/jwasham/coding-interview-university
-
-This will be used for keeping a personal track
-
 # Coding Interview University
 
 > I originally created this as a short to-do list of study topics for becoming a software engineer,
