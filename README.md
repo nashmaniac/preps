@@ -1,4 +1,5 @@
-# Coding Interview University
+# Preparation Update through Coding interview university
+[Nashmaniac Preparation Update](https://nashmaniac.github.io/preps/)
 
 > I originally created this as a short to-do list of study topics for becoming a software engineer,
 > but it grew to the large list you see today. After going through this study plan, [I got hired
