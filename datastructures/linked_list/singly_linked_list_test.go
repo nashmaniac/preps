@@ -7,205 +7,304 @@ import (
 )
 
 var _ = Describe("SinglyLinkedList", func() {
+
 	Context("Size", func() {
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
 		When("initialized", func() {
-			It("size is 0", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
+			It("size should be zero", func() {
 				Expect(l.Size()).To(Equal(0))
 			})
 		})
-		When("added element", func() {
-			It("size is 1", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushBack("Hello")
-				Expect(l.Size()).To(Equal(1))
+
+		When("added an element", func() {
+			It("should increment the size by 1", func() {
+
 			})
 		})
+
+		When("remove an element", func() {
+			It("should decrement the size by 1", func() {
+
+			})
+		})
+
 	})
 
 	Context("Empty", func() {
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
 		When("initialized", func() {
-			It("size is 0", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
+			It("return empty", func() {
 				Expect(l.Empty()).To(BeTrue())
 			})
 		})
-		When("added element", func() {
-			It("size is 1", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushBack("Hello")
-				Expect(l.Empty()).ToNot(BeTrue())
-			})
-		})
-	})
 
-	Context("PushBack", func() {
-		When("the list is empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushBack("hello")
-				Expect(l.Size()).To(Equal(1))
+		When("added an element", func() {
+			It("should not be empty", func() {
+
 			})
 		})
 
-		When("the list is not empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushBack("hello")
-				l.PushBack("world")
-				Expect(l.Size()).To(Equal(2))
+		When("remove an element from more than an element", func() {
+			It("should not be empty", func() {
+
 			})
 		})
+
+		When("remove an element with a single element", func() {
+			It("should be empty", func() {
+
+			})
+		})
+
 	})
 
 	Context("PushFront", func() {
-		When("the list is empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushFront("hello")
-				Expect(l.Size()).To(Equal(1))
-				Expect(l.Front()).To(Equal("hello"))
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("added an element with empty list", func() {
+			It("the front should be equal to value and size increment by 1", func() {
+
 			})
 		})
 
-		When("the list is not empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushFront("hello")
-				l.PushFront("world")
-				Expect(l.Size()).To(Equal(2))
-				Expect(l.Front()).To(Equal("world"))
+		When("added an element with a non-empty list", func() {
+			BeforeEach(func() {
+
+			})
+
+			It("the front should be equal to value and size increment by 1", func() {
+
 			})
 		})
+
+	})
+
+	Context("PushBack", func() {
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("added an element with empty list", func() {
+			It("the back should be equal to value and size increment by 1", func() {
+
+			})
+		})
+
+		When("added an element with a non-empty list", func() {
+			BeforeEach(func() {
+
+			})
+
+			It("the back should be equal to value and size increment by 1", func() {
+
+			})
+		})
+
 	})
 
 	Context("Front", func() {
-		When("the list is empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				Expect(l.Size()).To(Equal(0))
-				Expect(l.Front()).To(BeNil())
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("list is empty", func() {
+			It("should return nil", func() {
+
 			})
 		})
 
-		When("the list is not empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushFront("hello")
-				l.PushFront("world")
-				Expect(l.Size()).To(Equal(2))
-				Expect(l.Front()).To(Equal("world"))
+		When("list is not empty", func() {
+			It("should return the first value", func() {
+
 			})
 		})
+
 	})
 
 	Context("Back", func() {
-		When("the list is empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				Expect(l.Size()).To(Equal(0))
-				Expect(l.Back()).To(BeNil())
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("list is empty", func() {
+			It("should return nil", func() {
+
 			})
 		})
 
-		When("the list is not empty", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushFront("hello")
-				l.PushFront("world")
-				Expect(l.Size()).To(Equal(2))
-				Expect(l.Back()).To(Equal("hello"))
+		When("list is not empty", func() {
+			It("should return the last value", func() {
+
 			})
 		})
+
 	})
 
 	Context("PopFront", func() {
+		var l linkedlist.LinkedList
 
-		When("the list contains no item", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				value := l.PopFront()
-				Expect(l.Size()).To(Equal(0))
-				Expect(value).To(BeNil())
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("list is empty", func() {
+			It("should return nil", func() {
+
 			})
 		})
 
-		When("the list contains only item", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushBack("Hello")
-				value := l.PopFront()
-				Expect(l.Size()).To(Equal(0))
-				Expect(value).To(Equal("Hello"))
+		When("list is not empty", func() {
+			It("should remove the first value", func() {
+
 			})
 		})
 
-		When("the list contains more than one item", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushFront("hello")
-				l.PushFront("world")
-				value := l.PopFront()
-				Expect(l.Size()).To(Equal(1))
-				Expect(value).To(Equal("world"))
-				value = l.PopFront()
-				Expect(l.Size()).To(Equal(0))
-				Expect(value).To(Equal("hello"))
+	})
+
+	Context("PopBack", func() {
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("list is empty", func() {
+			It("should return nil", func() {
+
+			})
+		})
+
+		When("list is not empty", func() {
+			It("should remove the last value", func() {
+
+			})
+		})
+
+	})
+
+	Context("ValueAt", func() {
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("index is less than size", func() {
+			It("should return the value", func() {
+
+			})
+		})
+		When("index is greater than size", func() {
+			It("should return nil", func() {
 
 			})
 		})
 	})
 
-	Context("PopBack", func() {
+	Context("Insert", func() {
+		var l linkedlist.LinkedList
 
-		When("the list contains no item", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				value := l.PopBack()
-				Expect(l.Size()).To(Equal(0))
-				Expect(value).To(BeNil())
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("index is zero", func() {
+			It("should be same as pushFront", func() {
+
 			})
 		})
 
-		When("the list contains only item", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushBack("Hello")
-				value := l.PopBack()
-				Expect(l.Size()).To(Equal(0))
-				Expect(value).To(Equal("Hello"))
+		When("index is greater than or equal to size", func() {
+			It("should be same as pushback", func() {
+
 			})
 		})
 
-		When("the list contains more than one item", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[string]()
-				l.PushFront("hello")
-				l.PushFront("world")
-				value := l.PopBack()
-				Expect(l.Size()).To(Equal(1))
-				Expect(value).To(Equal("hello"))
-				value = l.PopBack()
-				Expect(l.Size()).To(Equal(0))
-				Expect(value).To(Equal("world"))
+		When("index is than the size", func() {
+			It("element should be added", func() {
 
 			})
+		})
+	})
+
+	Context("Erase", func() {
+		var l linkedlist.LinkedList
+
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
+
+		When("index is zero", func() {
+			It("should be same as popFront", func() {
+
+			})
+		})
+
+		When("index is greater than or equal to size", func() {
+			It("should be same as popBack", func() {
+
+			})
+		})
+
+		When("index is than the size", func() {
+			It("element should be removed", func() {
+
+			})
+		})
+	})
+
+	Context("ValueFromEnd", func() {
+		When("index is greater than the size", func() {
+			It("should return the mod of the size", func() {
+
+			})
+		})
+
+		When("index is less than size", func() {
+			It("should return the object", func() {
+
+			})
+		})
+	})
+
+	Context("Reverse", func() {
+		It("should reverse the list", func() {
+
 		})
 	})
 
 	Context("RemoveValue", func() {
-		When("the element is in the list", func() {
-			It("passes", func() {
-				l := linkedlist.NewSinglyLinkedList[int]()
-				l.PushBack(1)
-				l.PushBack(2)
-				l.PushBack(3)
-				l.PushBack(4)
-				
+		When("value is present", func() {
+			It("remove the first occurances", func() {
+
 			})
 		})
 
+		When("value is not present", func() {
+			It("should not remove anything", func() {
 
+			})
+		})
 	})
 
 })

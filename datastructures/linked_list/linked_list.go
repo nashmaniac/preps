@@ -7,16 +7,16 @@ type Element interface {
 type LinkedList interface {
 	Size() int
 	Empty() bool
-	ValueAt(index int) Element
 	PushFront(value Element)
-	PopFront() Element
 	PushBack(value Element)
-	PopBack() Element
 	Front() Element
 	Back() Element
+	PopFront() Element
+	PopBack() Element
+	ValueAt(index int) Element
 	Insert(index int, value Element)
 	Erase(index int)
 	ValueFromEnd(n int) Element
-	Reverse()
-	RemoveValue(value Element)
+	// Reverse()
+	// RemoveValue(value Element)
 }
