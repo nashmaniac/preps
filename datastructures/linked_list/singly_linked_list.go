@@ -12,62 +12,103 @@ type singlyLinkedList struct {
 }
 
 // Back implements LinkedList
-func (*singlyLinkedList) Back() Element {
-	panic("unimplemented")
+func (s *singlyLinkedList) Back() Element {
+	if s.Empty() {
+		return nil
+	}
+	return s.Tail.value
 }
 
 // Empty implements LinkedList
-func (*singlyLinkedList) Empty() bool {
-	panic("unimplemented")
+func (s *singlyLinkedList) Empty() bool {
+	return s.size == 0
 }
 
 // Erase implements LinkedList
-func (*singlyLinkedList) Erase(index int) {
+func (s *singlyLinkedList) Erase(index int) {
 	panic("unimplemented")
 }
 
 // Front implements LinkedList
-func (*singlyLinkedList) Front() Element {
-	panic("unimplemented")
+func (s *singlyLinkedList) Front() Element {
+	if s.Empty() {
+		return nil
+	}
+	return s.Head.value
 }
 
 // Insert implements LinkedList
-func (*singlyLinkedList) Insert(index int, value Element) {
+func (s *singlyLinkedList) Insert(index int, value Element) {
 	panic("unimplemented")
 }
 
 // PopBack implements LinkedList
-func (*singlyLinkedList) PopBack() Element {
-	panic("unimplemented")
+func (s *singlyLinkedList) PopBack() Element {
+	if s.Empty() {
+		return nil
+	}
+	return nil
 }
 
 // PopFront implements LinkedList
-func (*singlyLinkedList) PopFront() Element {
-	panic("unimplemented")
+func (s *singlyLinkedList) PopFront() Element {
+	if s.Empty() {
+		return nil
+	}
+
+	node := s.Head
+	s.Head = node.next
+	s.size--
+	if s.Empty() {
+		s.Tail = node.next
+	}
+	return node.value
 }
 
 // PushBack implements LinkedList
-func (*singlyLinkedList) PushBack(value Element) {
-	panic("unimplemented")
+func (s *singlyLinkedList) PushBack(value Element) {
+	node := &singlyLinkedNode{
+		value: value,
+		next:  nil,
+	}
+	if s.Empty() {
+		s.Head = node
+		s.Tail = node
+	} else {
+		s.Tail.next = node
+		s.Tail = node
+	}
+	s.size++
 }
 
 // PushFront implements LinkedList
-func (*singlyLinkedList) PushFront(value Element) {
-	panic("unimplemented")
+func (s *singlyLinkedList) PushFront(value Element) {
+	node := &singlyLinkedNode{
+		value: value,
+		next:  nil,
+	}
+	if s.Empty() {
+		s.Head = node
+		s.Tail = node
+	} else {
+		node.next = s.Head
+		s.Head = node
+	}
+	s.size++
 }
 
 // Size implements LinkedList
-func (*singlyLinkedList) Size() int {
-	panic("unimplemented")
+func (s *singlyLinkedList) Size() int {
+	return s.size
 }
 
 // ValueAt implements LinkedList
-func (*singlyLinkedList) ValueAt(index int) Element {
+func (s *singlyLinkedList) ValueAt(index int) Element {
 	panic("unimplemented")
 }
 
 // ValueFromEnd implements LinkedList
-func (*singlyLinkedList) ValueFromEnd(n int) Element {
+func (s *singlyLinkedList) ValueFromEnd(n int) Element {
 	panic("unimplemented")
 }
 

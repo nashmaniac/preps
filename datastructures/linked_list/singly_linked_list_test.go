@@ -23,13 +23,19 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("added an element", func() {
 			It("should increment the size by 1", func() {
-
+				iLength := l.Size()
+				l.PushBack("hello")
+				rLength := l.Size()
+				Expect(rLength - iLength).To(Equal(1))
 			})
 		})
 
 		When("remove an element", func() {
 			It("should decrement the size by 1", func() {
-
+				iLength := l.Size()
+				l.PopBack()
+				rLength := l.Size()
+				Expect(iLength - rLength).To(Equal(1))
 			})
 		})
 
@@ -50,19 +56,25 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("added an element", func() {
 			It("should not be empty", func() {
-
+				l.PushBack("hello")
+				Expect(l.Empty()).ToNot(BeTrue())
 			})
 		})
 
 		When("remove an element from more than an element", func() {
 			It("should not be empty", func() {
-
+				l.PushBack("hello")
+				l.PushBack("world")
+				l.PopFront()
+				Expect(l.Empty()).ToNot(BeTrue())
 			})
 		})
 
 		When("remove an element with a single element", func() {
 			It("should be empty", func() {
-
+				l.PushBack("hello")
+				l.PopFront()
+				Expect(l.Empty()).To(BeTrue())
 			})
 		})
 
@@ -77,17 +89,23 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("added an element with empty list", func() {
 			It("the front should be equal to value and size increment by 1", func() {
-
+				iLength := l.Size()
+				l.PushFront("Hello")
+				rLength := l.Size()
+				Expect(rLength - iLength).To(Equal(1))
 			})
 		})
 
 		When("added an element with a non-empty list", func() {
 			BeforeEach(func() {
-
+				l.PushFront("World")
 			})
 
 			It("the front should be equal to value and size increment by 1", func() {
-
+				iLength := l.Size()
+				l.PushFront("Hello")
+				rLength := l.Size()
+				Expect(rLength - iLength).To(Equal(1))
 			})
 		})
 
@@ -102,17 +120,21 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("added an element with empty list", func() {
 			It("the back should be equal to value and size increment by 1", func() {
-
+				iLength := l.Size()
+				l.PushBack("hello")
+				Expect(l.Size() - iLength).To(Equal(1))
 			})
 		})
 
 		When("added an element with a non-empty list", func() {
 			BeforeEach(func() {
-
+				l.PushBack("hello")
 			})
 
 			It("the back should be equal to value and size increment by 1", func() {
-
+				iLength := l.Size()
+				l.PushBack("world")
+				Expect(l.Size() - iLength).To(Equal(1))
 			})
 		})
 
@@ -127,13 +149,16 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("list is empty", func() {
 			It("should return nil", func() {
-
+				value := l.Front()
+				Expect(value).To(BeNil())
 			})
 		})
 
 		When("list is not empty", func() {
 			It("should return the first value", func() {
-
+				l.PushBack("hello")
+				value := l.Front()
+				Expect(value).To(Equal("hello"))
 			})
 		})
 
@@ -148,13 +173,17 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("list is empty", func() {
 			It("should return nil", func() {
-
+				value := l.Back()
+				Expect(value).To(BeNil())
 			})
 		})
 
 		When("list is not empty", func() {
 			It("should return the last value", func() {
-
+				l.PushBack("hello")
+				l.PushBack("world")
+				value := l.Back()
+				Expect(value).To(Equal("world"))
 			})
 		})
 
@@ -169,13 +198,25 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("list is empty", func() {
 			It("should return nil", func() {
-
+				value := l.PopFront()
+				Expect(value).To(BeNil())
 			})
 		})
 
-		When("list is not empty", func() {
+		When("list is not empty and has one item", func() {
 			It("should remove the first value", func() {
+				l.PushBack("hello")
+				value := l.PopFront()
+				Expect(value).To(Equal("hello"))
+			})
+		})
 
+		When("list is not empty and has multiple items", func() {
+			It("should remove the first value", func() {
+				l.PushBack("hello")
+				l.PushBack("world")
+				value := l.PopFront()
+				Expect(value).To(Equal("hello"))
 			})
 		})
 
