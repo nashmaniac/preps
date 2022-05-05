@@ -32,6 +32,7 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("remove an element", func() {
 			It("should decrement the size by 1", func() {
+				l.PushBack("hello")
 				iLength := l.Size()
 				l.PopBack()
 				rLength := l.Size()
@@ -231,13 +232,29 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("list is empty", func() {
 			It("should return nil", func() {
-
+				value := l.PopBack()
+				Expect(value).To(BeNil())
 			})
 		})
 
 		When("list is not empty", func() {
+			It("should remove the first value if there is only element left", func() {
+				l.PushFront("Hello")
+				value := l.PopBack()
+				Expect(value).To(Equal("Hello"))
+				Expect(l.Size()).To(Equal(0))
+				Expect(l.PopBack()).To(BeNil())
+			})
 			It("should remove the last value", func() {
-
+				l.PushFront("Hello")
+				l.PushBack("World")
+				l.PushBack("Shetu")
+				value := l.PopBack()
+				Expect(value).To(Equal("Shetu"))
+				Expect(l.Size()).To(Equal(2))
+				Expect(l.PopBack()).To(Equal("World"))
+				Expect(l.PopBack()).To(Equal("Hello"))
+				Expect(l.Size()).To(Equal(0))
 			})
 		})
 
@@ -252,12 +269,36 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("index is less than size", func() {
 			It("should return the value", func() {
+				values := []string{
+					"Hello",
+					"World",
+					"Shetu",
+					"Raju",
+				}
+
+				for _, i := range values {
+					l.PushBack(i)
+				}
+				for index, value := range values {
+					Expect(l.ValueAt(index)).To(Equal(value))
+				}
 
 			})
 		})
 		When("index is greater than size", func() {
 			It("should return nil", func() {
+				values := []string{
+					"Hello",
+					"World",
+					"Shetu",
+					"Raju",
+				}
 
+				for _, i := range values {
+					l.PushBack(i)
+				}
+
+				Expect(l.ValueAt(10)).To(BeNil())
 			})
 		})
 	})
@@ -271,19 +312,32 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("index is zero", func() {
 			It("should be same as pushFront", func() {
-
+				l.PushBack("Hello")
+				l.Insert(0, "World")
+				Expect(l.Front()).To(Equal("World"))
 			})
 		})
 
 		When("index is greater than or equal to size", func() {
 			It("should be same as pushback", func() {
-
+				l.PushBack("Hello")
+				l.PushBack("World")
+				l.Insert(2, "Shetu")
+				Expect(l.Size()).To(Equal(3))
+				Expect(l.Back()).To(Equal("Shetu"))
+				l.Insert(6, "Hi")
+				Expect(l.Size()).To(Equal(4))
+				Expect(l.Back()).To(Equal("Hi"))
 			})
 		})
 
-		When("index is than the size", func() {
+		When("index is SMALLER than the size", func() {
 			It("element should be added", func() {
-
+				l.PushBack("hello")
+				l.PushBack("World")
+				l.Insert(1, "Shetu")
+				Expect(l.Size()).To(Equal(3))
+				Expect(l.ValueAt(1)).To(Equal("Shetu"))
 			})
 		})
 	})
@@ -297,53 +351,144 @@ var _ = Describe("SinglyLinkedList", func() {
 
 		When("index is zero", func() {
 			It("should be same as popFront", func() {
-
+				values := []string{
+					"hello", "world", "shetu",
+				}
+				for _, i := range values {
+					l.PushBack(i)
+				}
+				l.Erase(0)
+				Expect(l.Size()).To(Equal(2))
+				Expect(l.Front()).To(Equal(values[1]))
 			})
 		})
 
 		When("index is greater than or equal to size", func() {
 			It("should be same as popBack", func() {
+				values := []string{
+					"hello", "world", "shetu",
+				}
+				for _, i := range values {
+					l.PushBack(i)
+				}
 
+				l.Erase(9)
+				Expect(l.Size()).To(Equal(2))
+				Expect(l.Back()).To(Equal(values[1]))
 			})
 		})
 
 		When("index is than the size", func() {
 			It("element should be removed", func() {
+				values := []string{
+					"hello", "world", "one", "two", "3", "shetu",
+				}
+				for _, i := range values {
+					l.PushBack(i)
+				}
 
+				l.Erase(3)
+				Expect(l.Size()).To(Equal(5))
+				Expect(l.ValueAt(3)).To(Equal(values[4]))
 			})
 		})
 	})
 
 	Context("ValueFromEnd", func() {
+		var l linkedlist.LinkedList
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
 		When("index is greater than the size", func() {
 			It("should return the mod of the size", func() {
+				values := []string{
+					"hello", "world", "raju", "hey",
+				}
+				for _, i := range values {
+					l.PushBack(i)
+				}
 
+				value := l.ValueFromEnd(6)
+				Expect(value).To(Equal(l.ValueAt(2)))
 			})
 		})
 
 		When("index is less than size", func() {
 			It("should return the object", func() {
-
+				values := []string{
+					"hello", "world", "raju", "hey",
+				}
+				for _, i := range values {
+					l.PushBack(i)
+				}
+				value := l.ValueFromEnd(3)
+				Expect(value).To(Equal(l.ValueAt(1)))
 			})
 		})
 	})
 
 	Context("Reverse", func() {
+		var l linkedlist.LinkedList
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
 		It("should reverse the list", func() {
+			values := []string{
+				"hello", "world", "shetu", "high",
+			}
+			for _, i := range values {
+				l.PushBack(i)
+			}
 
+			l.Reverse()
+
+			n := l.Size()
+			for index, i := range values {
+				value := l.ValueAt(n - index - 1)
+				Expect(value).To(Equal(i))
+			}
 		})
 	})
 
 	Context("RemoveValue", func() {
+		var l linkedlist.LinkedList
+		BeforeEach(func() {
+			l = linkedlist.NewSinglyLinkedList[string]()
+		})
 		When("value is present", func() {
 			It("remove the first occurances", func() {
+				values := []string{
+					"hello", "hello", "hello", "shetu",
+				}
 
+				for _, i := range values {
+					l.PushBack(i)
+				}
+
+				Expect(l.Size()).To(Equal(4))
+				l.RemoveValue("hello")
+				Expect(l.Size()).To(Equal(3))
+				Expect(l.Front()).To(Equal("hello"))
+				l.RemoveValue("shetu")
+				Expect(l.Size()).To(Equal(2))
+				Expect(l.Back()).To(Equal("hello"))
 			})
 		})
 
 		When("value is not present", func() {
 			It("should not remove anything", func() {
+				values := []string{
+					"hello", "hello", "hello", "shetu",
+				}
 
+				for _, i := range values {
+					l.PushBack(i)
+				}
+
+				l.RemoveValue("welcome")
+				Expect(l.Size()).To(Equal(4))
+				Expect(l.Front()).To(Equal("hello"))
+				Expect(l.Back()).To(Equal("shetu"))
 			})
 		})
 	})

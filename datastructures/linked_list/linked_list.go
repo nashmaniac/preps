@@ -17,6 +17,7 @@ type LinkedList interface {
 	Insert(index int, value Element)
 	Erase(index int)
 	ValueFromEnd(n int) Element
-	// Reverse()
-	// RemoveValue(value Element)
+	Reverse()
+	RemoveValue(value Element)
+	Iterate() []Element
 }
