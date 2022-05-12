@@ -1,9 +1,14 @@
 package main
 
-import "github.com/nashmaniac/golang-coding/datastructures/avl"
+import (
+	"github.com/nashmaniac/golang-coding/datastructures/trees/bbst"
+	"github.com/nashmaniac/golang-coding/datastructures/utils"
+)
 
 func main() {
-	l := avl.NewAVLTree()
-	l.Insert(1)
-	l.Insert(2)
+	l := bbst.NewAVL()
+	for i := 0; i < 15; i++ {
+		l.Add(i)
+		utils.PrintTree(l.GetRoot())
+	}
 }
