@@ -9,6 +9,10 @@ func main() {
 	l := bbst.NewAVL()
 	for i := 0; i < 15; i++ {
 		l.Add(i)
-		utils.PrintTree(l.GetRoot())
+		// utils.PrintTree(l.GetRoot())
 	}
+
+	l.Delete(7)
+	utils.PrintTree(l.GetRoot())
+
 }
