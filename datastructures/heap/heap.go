@@ -8,3 +8,7 @@ type Heap interface {
 	HeapSize() int
 	ElementList() []int
 }
+
+type HeapSort interface {
+	Sort(m Heap)
+}

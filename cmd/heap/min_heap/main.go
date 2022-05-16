@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/nashmaniac/golang-coding/datastructures/heap"
 )
@@ -32,10 +33,13 @@ func main() {
 	m.Offer(1)
 	printOutput(m)
 
-	for !m.IsEmpty() {
-		n := m.Poll()
-		// printOutput(m)
-		fmt.Println(*n)
-	}
+	// for !m.IsEmpty() {
+	// 	n := m.Poll()
+	// 	// printOutput(m)
+	// 	fmt.Println(*n)
+	// }
+
+	elements := heap.DescendingSort(m.ElementList())
+	log.Println(elements)
 
 }
