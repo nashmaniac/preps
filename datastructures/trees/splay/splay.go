@@ -82,11 +82,61 @@ type SplayTree interface {
 	GetNodeToSplay() Node
 	Search(value int) Node
 	Insert(value int)
+	Delete(value int)
 }
 
 type splayTree struct {
 	Root        Node
 	NodeToSplay Node
+}
+
+func Transplant(s SplayTree, u Node, v Node) {
+	parent := u.GetParent()
+	if parent == nil {
+		s.SetRoot(v)
+	} else if parent.GetLeft() == u {
+		parent.SetLeft(v)
+	} else if parent.GetRight() == v {
+		parent.SetRight(v)
+	}
+	if v != nil {
+		v.SetParent(parent)
+	}
+}
+
+func Remove(tree SplayTree, node Node) {
+	if node == nil {
+		return
+	}
+
+	if node.GetLeft() == nil {
+		Transplant(tree, node, node.GetRight())
+	} else if node.GetRight() == nil {
+		Transplant(tree, node, node.GetLeft())
+	} else {
+		maxNode := MaximumNode(node.GetLeft())
+		node.SetValue(maxNode.GetValue())
+		Remove(tree, maxNode)
+	}
+}
+
+// Delete implements SplayTree
+func (s *splayTree) Delete(value int) {
+	node := Search(s, s.GetRoot(), value)
+	if node == nil {
+		if s.GetNodeToSplay() != nil {
+			Splay(s.GetNodeToSplay())
+			s.SetRoot(s.GetNodeToSplay())
+			s.SetNodeToSplay(nil)
+		}
+	}
+	// find maximum to the left
+	maxNode := MaximumNode(node.GetLeft())
+	if maxNode != nil {
+		s.SetNodeToSplay(maxNode.GetParent())
+		node.SetValue(maxNode.GetValue())
+	}
+	Remove(maxNode)
 }
 
 // GetNodeToSplay implements SplayTree
@@ -118,7 +168,17 @@ func RotateLeft(x Node) {
 		t2.SetParent(y)
 	}
 
-	x.SetParent(y.GetParent())
+	parent := y.GetParent()
+	if parent != nil {
+		if parent.GetLeft() == y {
+			parent.SetLeft(x)
+		}
+		if parent.GetRight() == y {
+			parent.SetRight(x)
+		}
+	}
+	x.SetParent(parent)
+
 	x.SetLeft(y)
 	y.SetParent(x)
 
@@ -133,7 +193,17 @@ func RotateRight(x Node) {
 		t2.SetParent(y)
 	}
 
-	x.SetParent(y.GetParent())
+	parent := y.GetParent()
+	if parent != nil {
+		if parent.GetLeft() == y {
+			parent.SetLeft(x)
+		}
+		if parent.GetRight() == y {
+			parent.SetRight(x)
+		}
+	}
+	x.SetParent(parent)
+
 	x.SetRight(y)
 	y.SetParent(x)
 }
@@ -142,10 +212,19 @@ func ZigZigLeft(x Node) {
 	y := x.GetParent()
 	z := y.GetParent()
 
-	parent := z.GetParent()
-
 	t3 := y.GetRight()
 	t2 := x.GetRight()
+
+	parent := z.GetParent()
+	if parent != nil {
+		if parent.GetLeft() == z {
+			parent.SetLeft(x)
+		}
+		if parent.GetRight() == z {
+			parent.SetRight(x)
+		}
+	}
+	x.SetParent(parent)
 
 	z.SetLeft(t3)
 	if t3 != nil {
@@ -162,18 +241,24 @@ func ZigZigLeft(x Node) {
 
 	x.SetRight(y)
 	y.SetParent(z)
-
-	x.SetParent(parent)
 }
 
 func ZigZigRight(x Node) {
 	y := x.GetParent()
 	z := y.GetParent()
 
-	parent := z.GetParent()
-
 	t2 := y.GetLeft()
 	t3 := x.GetLeft()
+
+	parent := z.GetParent()
+	if parent != nil {
+		if parent.GetLeft() == z {
+			parent.SetLeft(x)
+		}
+		if parent.GetRight() == z {
+			parent.SetRight(x)
+		}
+	}
 
 	z.SetRight(t2)
 	if t2 != nil {
@@ -196,10 +281,19 @@ func ZigZagRight(x Node) {
 	y := x.GetParent()
 	z := y.GetParent()
 
-	parent := z.GetParent()
-
 	t2 := x.GetLeft()
 	t3 := x.GetRight()
+
+	parent := z.GetParent()
+	if parent != nil {
+		if parent.GetLeft() == z {
+			parent.SetLeft(x)
+		}
+		if parent.GetRight() == z {
+			parent.SetRight(x)
+		}
+	}
+	x.SetParent(parent)
 
 	z.SetRight(t2)
 	if t2 != nil {
@@ -217,17 +311,25 @@ func ZigZagRight(x Node) {
 	x.SetRight(y)
 	y.SetParent(x)
 
-	x.SetParent(parent)
 }
 
 func ZigZagLeft(x Node) {
 	y := x.GetParent()
 	z := y.GetParent()
 
-	parent := z.GetParent()
-
 	t2 := x.GetLeft()
 	t3 := x.GetRight()
+
+	parent := z.GetParent()
+	if parent != nil {
+		if parent.GetLeft() == z {
+			parent.SetLeft(x)
+		}
+		if parent.GetRight() == x {
+			parent.SetRight(x)
+		}
+	}
+	x.SetParent(parent)
 
 	y.SetRight(t2)
 	if t2 != nil {
@@ -244,8 +346,6 @@ func ZigZagLeft(x Node) {
 
 	x.SetRight(z)
 	z.SetParent(x)
-
-	x.SetParent(parent)
 }
 
 func Splay(node Node) {
@@ -324,9 +424,39 @@ func (s *splayTree) Insert(value int) {
 	s.NodeToSplay = nil
 }
 
+func Search(s SplayTree, root Node, value int) Node {
+	if root == nil {
+		return nil
+	}
+	s.SetNodeToSplay(root)
+	if root.GetValue() == value {
+		return root
+	} else if value < root.GetValue() {
+		return Search(s, root.GetLeft(), value)
+	} else {
+		return Search(s, root.GetRight(), value)
+	}
+}
+
 // Search implements SplayTree
 func (s *splayTree) Search(value int) Node {
-	panic("unimplemented")
+	node := Search(s, s.GetRoot(), value)
+	if s.GetNodeToSplay() != nil {
+		Splay(s.GetNodeToSplay())
+		s.SetRoot(s.GetNodeToSplay())
+		s.SetNodeToSplay(nil)
+	}
+	return node
+}
+
+func MaximumNode(node Node) Node {
+	if node == nil {
+		return nil
+	}
+	for node.GetRight() != nil {
+		node = node.GetRight()
+	}
+	return node
 }
 
 func NewSplayTree() SplayTree {
