@@ -10,12 +10,38 @@ type Node interface {
 	GetRight() Node
 	SetRight(node Node)
 	GetHeight() int
+	GetHeightValue() int
+	SetHeight(value int)
+	GetBalanceFactor() int
+	SetBalanceFactor(bf int)
 }
 
 type node struct {
-	value int
-	left  Node
-	right Node
+	value  int
+	height int
+	bf     int
+	left   Node
+	right  Node
+}
+
+// GetHeightValue implements Node
+func (n *node) GetHeightValue() int {
+	return n.height
+}
+
+// GetBalanceFactor implements Node
+func (n *node) GetBalanceFactor() int {
+	return n.bf
+}
+
+// SetBalanceFactor implements Node
+func (n *node) SetBalanceFactor(bf int) {
+	n.bf = bf
+}
+
+// SetHeight implements Node
+func (n *node) SetHeight(value int) {
+	n.height = value
 }
 
 func max(a, b int) int {
