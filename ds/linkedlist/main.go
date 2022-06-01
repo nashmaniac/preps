@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/nashmaniac/golang-coding/ds/linkedlist/linkedlist"
 )
 
 func main() {
-	l := linkedlist.NewSinglyLinkedListWithTailPointer()
+	l := linkedlist.NewDoublyLinkedList()
 
 	n := 5
 	for i := 0; i < n; i++ {
@@ -20,11 +18,11 @@ func main() {
 		l.Print()
 	}
 
-	for i := 0; i < 5; i++ {
-		value := l.PopBack()
-		fmt.Println(value)
-		l.Print()
-	}
+	// for i := 0; i < 5; i++ {
+	// 	value := l.PopBack()
+	// 	fmt.Println(value)
+	// 	l.Print()
+	// }
 
 	// for i := 0; i < 5; i++ {
 	// 	value := l.PopFront()
@@ -39,9 +37,20 @@ func main() {
 
 	l.Reverse()
 	l.Print()
-	l.AddFront(10)
-	l.Print()
-	l.AddBack(15)
-	l.Print()
+	// l.Remove(1)
+	// l.Print()
+	// l.Remove(5)
+	// l.Print()
+	// l.AddFront(10)
+	// l.Print()
+	// l.AddBack(15)
+	// l.Print()
+	// l.Remove(3)
+	// l.Print()
 
+	index := []int{0, 7, 4}
+	for _, i := range index {
+		l.Delete(i)
+		l.Print()
+	}
 }
