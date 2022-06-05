@@ -55,5 +55,6 @@ func heapSimulation() {
 }
 
 func main() {
+	queueSimulation()
 	heapSimulation()
 }
