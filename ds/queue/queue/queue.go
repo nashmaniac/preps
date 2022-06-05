@@ -4,6 +4,7 @@ import "fmt"
 
 type Queue interface {
 	Offer(item Element)
+	OfferItem(key int, item Element)
 	Poll() Element
 	IsEmpty() bool
 	Print()
@@ -12,6 +13,11 @@ type queue struct {
 	head Node
 	tail Node
 	size int
+}
+
+// OfferItem implements Queue
+func (q *queue) OfferItem(key int, item Element) {
+	panic("unimplemented")
 }
 
 // IsEmpty implements Queue
