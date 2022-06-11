@@ -11,12 +11,22 @@ func (b *bst) Print() {
 
 // Delete implements BST
 func (b *bst) Delete(item int) {
-	panic("unimplemented")
+	b.Find(item)
 }
 
 // Find implements BST
-func (b *bst) Find(item int) {
-	panic("unimplemented")
+func (b *bst) Find(item int) Node {
+	current := b.GetRoot()
+	for current != nil {
+		if current.GetValue() < item {
+			current = current.GetRight()
+		} else if current.GetValue() > item {
+			current = current.GetLeft()
+		} else {
+			return current
+		}
+	}
+	return nil
 }
 
 // Insert implements BST
@@ -42,6 +52,7 @@ func (b *bst) Insert(item int) {
 		child.SetParent(parent)
 		child = parent
 	}
+	child.SetParent(nil)
 	b.root = child
 }
 
