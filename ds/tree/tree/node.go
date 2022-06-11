@@ -14,6 +14,10 @@ type Node interface {
 	SetParent(node Node)
 
 	GetHeight() int
+	SetHeight(i int)
+
+	GetBalanceFactor() int
+	SetBalanceFactor(i int)
 }
 
 type node struct {
@@ -21,6 +25,23 @@ type node struct {
 	right  Node
 	left   Node
 	parent Node
+	height int
+	bf     int
+}
+
+func (node *node) SetHeight(i int) {
+	//TODO implement me
+	node.height = i
+}
+
+func (node *node) GetBalanceFactor() int {
+	//TODO implement me
+	return node.bf
+}
+
+func (node *node) SetBalanceFactor(i int) {
+	//TODO implement me
+	node.bf = i
 }
 
 func getHeight(node Node) int {

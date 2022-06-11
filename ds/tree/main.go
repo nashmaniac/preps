@@ -6,15 +6,16 @@ import (
 
 func main() {
 	nums := []int{
-		5, 8, 3, 4, 2, 1, // 10, 9, 7,
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 	}
 
-	t := tree.NewBST()
+	t := tree.NewAVl()
 	for _, i := range nums {
 		t.Insert(i)
-		t.Print()
+		//t.Print()
 	}
-
-	node := t.Find(3)
-	tree.Print(node)
+	t.Delete(8)
+	//node := t.Find(3)
+	t.Delete(4)
+	t.Delete(5)
 }

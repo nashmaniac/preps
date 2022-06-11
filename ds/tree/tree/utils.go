@@ -8,3 +8,7 @@ func Pow(a int, b int) int {
 func Max(a int, b int) int {
 	return int(math.Max(float64(a), float64(b)))
 }
+
+func Abs(a int) int {
+	return int(math.Abs(float64(a)))
+}
